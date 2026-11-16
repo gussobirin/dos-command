@@ -1,1 +1,176 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LKPD Interaktif: Sistem Operasi DOS</title>
+<style>
+:root{--bg:#f4f6f9;--card:#fff;--fg:#1c2330;--mut:#5b6677;--bd:#d9dee6;--ac:#1f6feb;--acs:#e6f0ff;--ok:#1a7f37;--oks:#e3f6e8;--bad:#c62828;--bads:#fdeaea;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0f141b;--card:#18202a;--fg:#e6ebf2;--mut:#9aa6b8;--bd:#2c3745;--ac:#5aa2ff;--acs:#172a45;--ok:#4cc16b;--oks:#14301e;--bad:#ff7b72;--bads:#3a1b1b}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0f141b;--card:#18202a;--fg:#e6ebf2;--mut:#9aa6b8;--bd:#2c3745;--ac:#5aa2ff;--acs:#172a45;--ok:#4cc16b;--oks:#14301e;--bad:#ff7b72;--bads:#3a1b1b}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:800px;margin:0 auto;padding:16px}
+header{background:linear-gradient(135deg,#1f6feb,#0b3d91);color:#fff;border-radius:16px;padding:22px 20px;margin-bottom:16px}
+header small{opacity:.85;letter-spacing:.06em;text-transform:uppercase;font-size:12px}
+header h1{margin:4px 0 2px;font-size:clamp(22px,5vw,30px);line-height:1.2}
+header p{margin:0;opacity:.9}
+section{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;margin-bottom:16px}
+h2{margin:0 0 4px;font-size:19px}
+h2 span{display:inline-block;background:var(--ac);color:#fff;border-radius:8px;font-size:12px;padding:2px 8px;margin-right:6px;vertical-align:2px}
+.sub{color:var(--mut);margin:0 0 12px;font-size:14px}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row label{flex:1 1 220px;font-size:13px;color:var(--mut)}
+input[type=text],textarea,select{width:100%;font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:9px 11px}
+textarea{min-height:84px;resize:vertical}
+ul.tp{margin:6px 0 0;padding-left:20px}
+.q{border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:10px;background:var(--bg)}
+.qt{margin:0 0 8px}
+.opts{display:grid;gap:6px}
+.opt{font:inherit;text-align:left;color:var(--fg);background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:9px 12px;cursor:pointer}
+.opt:hover{border-color:var(--ac)}
+.opt.ok{background:var(--oks);border-color:var(--ok)}.opt.bad{background:var(--bads);border-color:var(--bad)}
+.fb{margin:8px 0 0;font-size:14px}.okt{color:var(--ok)}.badt{color:var(--bad)}
+table{width:100%;border-collapse:collapse}td{padding:6px 4px;vertical-align:middle}
+td:first-child{width:90px}
+code,.cmd{font-family:ui-monospace,Consolas,monospace;background:var(--acs);color:var(--ac);padding:2px 7px;border-radius:6px;font-weight:700}
+.mk{width:24px;text-align:center;font-weight:700}
+button.pri{font:inherit;font-weight:600;background:var(--ac);color:#fff;border:0;border-radius:10px;padding:9px 16px;cursor:pointer}
+button.sec{font:inherit;background:transparent;color:var(--ac);border:1px solid var(--ac);border-radius:10px;padding:8px 14px;cursor:pointer}
+.tasks{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:6px}
+.tasks li{display:flex;gap:8px;align-items:flex-start;padding:8px 10px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);font-size:15px}
+.tasks li::before{content:"○";color:var(--mut)}
+.tasks li.d{background:var(--oks);border-color:var(--ok)}.tasks li.d::before{content:"✓";color:var(--ok);font-weight:700}
+#term{background:#0b0f14;color:#b9f5c8;border-radius:12px;padding:12px;font:14px/1.45 ui-monospace,Consolas,monospace;height:300px;overflow-y:auto;cursor:text}
+#o div{white-space:pre-wrap;word-break:break-word;min-height:1.45em}
+.pl{display:flex;gap:6px}
+#in{flex:1;background:transparent;border:0;outline:0;color:#fff;font:inherit;padding:0;border-radius:0}
+details{margin:10px 0}summary{cursor:pointer;color:var(--ac);font-weight:600}
+.tw{overflow-x:auto}
+.rk{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:10px 0}
+.rk div{background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:10px;text-align:center}
+.rk b{display:block;font-size:22px;color:var(--ac)}.rk small{color:var(--mut)}
+@media print{button,#term .pl{display:none}body{background:#fff}}
+</style></head>
+<body><main>
+<header><small>LKPD Interaktif · Dasar-dasar TJKT · Kelas X</small>
+<h1>Mengenal Sistem Operasi DOS</h1><p>Disk Operating System dan perintah dasarnya</p></header>
+
+<section><h2>Identitas</h2>
+<div class="row"><label>Nama<input type="text" id="nm" placeholder="Nama lengkap"></label><label>Kelas / Absen<input type="text" id="kl" placeholder="X TJKT ... / ..."></label></div></section>
+
+<section><h2>Tujuan Pembelajaran</h2>
+<ul class="tp"><li>Menjelaskan pengertian dan ciri antarmuka DOS.</li><li>Menggunakan perintah dasar DOS untuk mengelola direktori dan berkas.</li><li>Menalar peran CLI dalam pekerjaan teknisi komputer dan jaringan.</li></ul></section>
+
+<section><h2><span>Kegiatan 1</span>Pahami Konsep</h2><p class="sub">Pilih satu jawaban. Jawaban langsung diperiksa dan dikunci.</p><div id="pg"></div></section>
+
+<section><h2><span>Kegiatan 2</span>Cocokkan Perintah</h2><p class="sub">Pasangkan perintah DOS dengan fungsinya.</p>
+<div class="tw"><table id="mt"></table></div>
+<p><button class="pri" id="mc">Periksa Jawaban</button></p></section>
+
+<section><h2><span>Kegiatan 3</span>Praktik di Terminal DOS</h2>
+<p class="sub">Ketik perintah di terminal simulasi, lalu selesaikan semua misi. Misi akan tercentang otomatis.</p>
+<ul class="tasks" id="tk"></ul>
+<div id="term"><div id="o"></div><div class="pl"><span id="pr">C:\&gt;</span><input id="in" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Ketik perintah DOS"></div></div>
+<p><button class="sec" id="rs">Ulangi simulasi</button></p>
+<details><summary>Petunjuk perintah</summary><div class="tw"><table>
+<tr><td><code>DIR</code></td><td>Daftar isi direktori aktif</td></tr>
+<tr><td><code>CD nama</code></td><td>Masuk folder (<code>CD ..</code> naik satu tingkat, <code>CD \</code> ke root)</td></tr>
+<tr><td><code>MD nama</code></td><td>Buat folder</td></tr>
+<tr><td><code>ECHO teks &gt; file.txt</code></td><td>Buat berkas berisi teks</td></tr>
+<tr><td><code>TYPE file</code></td><td>Tampilkan isi berkas</td></tr>
+<tr><td><code>COPY asal tujuan</code></td><td>Salin berkas</td></tr>
+<tr><td><code>DEL file</code></td><td>Hapus berkas</td></tr>
+<tr><td><code>REN lama baru</code></td><td>Ganti nama · <code>RD</code> hapus folder kosong · <code>CLS</code> bersihkan layar</td></tr></table></div></details></section>
+
+<section><h2><span>Kegiatan 4</span>Analisis dan Refleksi</h2>
+<p class="sub">Jawab dengan kalimatmu sendiri. Bagian ini dinilai oleh guru.</p>
+<p><b>1.</b> Jelaskan perbedaan perintah <code>DEL</code> dan <code>RD</code> beserta contoh penggunaannya.</p><textarea class="es"></textarea>
+<p><b>2.</b> Mengapa teknisi jaringan masih perlu menguasai antarmuka berbasis perintah (CLI) meskipun sudah ada GUI? Berikan minimal 2 alasan.</p><textarea class="es"></textarea>
+<p><b>3.</b> Refleksi: bagian mana yang paling mudah dan paling sulit bagimu hari ini? Apa langkahmu untuk memperbaikinya?</p><textarea class="es"></textarea></section>
+
+<section><h2>Rekap Hasil</h2><div class="rk" id="rk"></div>
+<p class="sub">Nilai otomatis hanya dari Kegiatan 1–3. Kegiatan 4 dinilai guru.</p>
+<button class="pri" id="dl">Unduh hasil (PDF)</button> <span class="sub" id="dls" role="status"></span></section>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const $=s=>document.querySelector(s),E=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e};
+const score={pg:0,mt:0,tk:0},ANS={},CMDS=[];
+/* Kegiatan 1 */
+const Q=[
+{q:"Apa kepanjangan dari DOS?",o:["Disk Operating System","Digital Output System","Data Operating Source","Disk Output Software"],a:0,e:"DOS adalah Disk Operating System, sistem operasi yang mengelola perangkat penyimpanan berupa disk."},
+{q:"Jenis antarmuka pengguna yang digunakan DOS adalah…",o:["GUI (Graphical User Interface)","CLI (Command Line Interface)","Touch Interface","Voice Interface"],a:1,e:"DOS dioperasikan dengan mengetik perintah teks, bukan dengan mengklik ikon."},
+{q:"Perintah untuk menampilkan daftar berkas dan folder pada direktori aktif adalah…",o:["LIST","SHOW","DIR","LS"],a:2,e:"DIR (directory) menampilkan isi direktori aktif beserta ukuran berkasnya."},
+{q:"Kamu berada di C:\\DATA\\TUGAS dan ingin naik satu tingkat ke C:\\DATA. Perintah yang tepat adalah…",o:["CD \\","CD ..","MD ..","BACK"],a:1,e:"CD .. pindah ke direktori induk. CD \\ akan membawa ke root (C:\\)."},
+{q:"Perintah untuk menghapus sebuah berkas adalah…",o:["DEL","RD","REN","CLS"],a:0,e:"DEL menghapus berkas. RD menghapus folder kosong, REN mengganti nama, CLS membersihkan layar."}];
+ANS.pg=Q.map(x=>({q:x.q,ok:null}));Q.forEach((x,i)=>{const c=E('div','q'),box=E('div','opts'),fb=E('p','fb');c.append(E('p','qt',`<b>${i+1}.</b> ${x.q}`));
+x.o.forEach((t,j)=>{const b=E('button','opt',t);b.onclick=()=>{if(c.dataset.d)return;c.dataset.d=1;const ok=j===x.a;if(ok)score.pg++;Object.assign(ANS.pg[i],{pick:t,ok,ans:x.o[x.a]});b.classList.add(ok?'ok':'bad');if(!ok)box.children[x.a].classList.add('ok');fb.className='fb '+(ok?'okt':'badt');fb.textContent=(ok?'Benar! ':'Belum tepat. ')+x.e;upd()};box.append(b)});
+c.append(box,fb);$('#pg').append(c)});
+/* Kegiatan 2 */
+const M=[["DIR","Menampilkan isi direktori"],["CD","Berpindah direktori"],["MD","Membuat direktori baru"],["COPY","Menyalin berkas"],["DEL","Menghapus berkas"],["CLS","Membersihkan layar"]];
+const fns=M.map(m=>m[1]).sort((a,b)=>a.localeCompare(b,'id'));
+M.forEach((m,i)=>{const r=E('tr',null,`<td><code>${m[0]}</code></td><td><select data-i="${i}"><option value="">— pilih fungsi —</option>${fns.map(f=>`<option>${f}</option>`).join('')}</select></td><td class="mk"></td>`);$('#mt').append(r)});
+$('#mc').onclick=()=>{let n=0;document.querySelectorAll('#mt select').forEach(s=>{const ok=s.value===M[s.dataset.i][1],mk=s.parentNode.nextSibling;if(ok)n++;mk.textContent=s.value?(ok?'✓':'✗'):'';mk.style.color=ok?'var(--ok)':'var(--bad)'});score.mt=n;upd()};
+/* Kegiatan 3: simulasi DOS */
+const mk=()=>({t:'d',c:{'COMMAND.COM':{t:'f',d:'[berkas sistem]'},'AUTOEXEC.BAT':{t:'f',d:'@ECHO OFF\nPATH C:\\DOS'},'CONFIG.SYS':{t:'f',d:'FILES=30\nBUFFERS=20'},'DOS':{t:'d',c:{'FORMAT.COM':{t:'f',d:'[berkas sistem]'},'EDIT.COM':{t:'f',d:'[berkas sistem]'}}},'DATA':{t:'d',c:{}}}});
+let fs=mk(),cwd=[],S={},done=[];
+const T=["Tampilkan isi direktori aktif dengan <code>DIR</code>","Buat folder bernama <code>TJKT</code> di C:\\","Masuk ke folder <code>TJKT</code>","Buat berkas <code>CATATAN.TXT</code> berisi teks apa saja (gunakan <code>ECHO</code>)","Tampilkan isi <code>CATATAN.TXT</code> dengan <code>TYPE</code>","Salin <code>CATATAN.TXT</code> menjadi <code>CADANGAN.TXT</code>","Hapus <code>CADANGAN.TXT</code>","Kembali ke direktori root <code>C:\\</code>"];
+const node=p=>p.reduce((n,k)=>n&&n.t==='d'?n.c[k]:null,fs);
+const ps=()=>'C:\\'+cwd.join('\\'),P=()=>ps()+'>';
+function res(s){s=s.replace(/^C:/i,'');const p=s.startsWith('\\')?[]:[...cwd];for(const x of s.split('\\').filter(Boolean)){if(x==='.')continue;if(x==='..'){p.pop();continue}p.push(x.toUpperCase())}return p}
+const out=t=>{const d=E('div');d.textContent=t;$('#o').append(d);$('#term').scrollTop=1e9};
+function run(raw){
+ const line=raw.trim().replace(/^cd(?=\.\.|\\)/i,'cd ');out(P()+raw);if(!line)return;CMDS.push(line);
+ const m=line.match(/^(\S+)\s*(.*)$/),c=m[1].toLowerCase(),a=m[2].trim(),cur=node(cwd);
+ switch(c){
+ case 'cls':$('#o').innerHTML='';break;
+ case 'ver':out('MS-DOS Version 6.22 (simulasi LKPD TJKT)');break;
+ case 'help':out('Perintah: DIR, CD, MD, RD, COPY, DEL, REN, TYPE, ECHO, CLS, VER');break;
+ case 'dir':{S.dir=1;out(' Volume in drive C is TJKT-X');out(' Directory of '+ps());let nf=0,nd=0,sz=0;for(const k in cur.c){const n=cur.c[k];if(n.t==='d'){nd++;out(k.padEnd(14)+'<DIR>')}else{nf++;sz+=n.d.length;out(k.padEnd(14)+String(n.d.length).padStart(6)+' bytes')}}out('   '+nf+' file(s)  '+sz+' bytes');out('   '+nd+' dir(s)');break}
+ case 'cd':{if(!a){out(ps());break}const p=res(a),n=node(p);if(n&&n.t==='d'){cwd=p;if(p[0]==='TJKT')S.in=1}else out('Invalid directory');break}
+ case 'md':case 'mkdir':{if(!a){out('Required parameter missing');break}const p=res(a),nm=p.pop(),par=node(p);if(!par||par.t!=='d'||!nm){out('Path not found');break}if(par.c[nm])out('A subdirectory or file '+nm+' already exists.');else par.c[nm]={t:'d',c:{}};break}
+ case 'rd':case 'rmdir':{const p=res(a),n=node(p);if(!a||!n||n.t!=='d'||Object.keys(n.c).length){out('Invalid path, not directory,');out('or directory not empty');break}if(p.join('\\')===cwd.join('\\')){out('Attempt to remove current directory');break}const nm=p.pop();delete node(p).c[nm];break}
+ case 'copy':{const [s,d]=a.split(/\s+/);if(!s||!d){out('Required parameter missing');break}const sp=res(s),sn=node(sp);if(!sn||sn.t!=='f'){out('File not found - '+s.toUpperCase());break}let dp=res(d);const dn=node(dp);if(dn&&dn.t==='d')dp=[...dp,sp[sp.length-1]];const nm=dp.pop(),par=node(dp);if(!par||par.t!=='d'||!nm){out('Path not found');break}par.c[nm]={t:'f',d:sn.d};out('        1 file(s) copied');break}
+ case 'del':case 'erase':{const p=res(a),n=node(p);if(!a||!n||n.t!=='f'){out('File not found');break}const nm=p.pop();delete node(p).c[nm];break}
+ case 'type':{const p=res(a),n=node(p);if(!a||!n||n.t!=='f'){out('File not found - '+a.toUpperCase());break}out(n.d);if(p.join('\\')==='TJKT\\CATATAN.TXT')S.typed=1;break}
+ case 'ren':case 'rename':{const [s,d]=a.split(/\s+/);const sp=res(s||''),n=node(sp);if(!s||!d||!n||n.t!=='f'){out('Duplicate file name or file not found');break}const par=node(sp.slice(0,-1)),nn=d.toUpperCase();if(par.c[nn]){out('Duplicate file name or file not found');break}par.c[nn]=n;delete par.c[sp[sp.length-1]];break}
+ case 'echo':{const mm=a.match(/^(.*?)\s*>\s*(\S+)$/);if(!mm){out(a||'ECHO is on');break}const p=res(mm[2]),nm=p.pop(),par=node(p);if(!par||par.t!=='d'||!nm){out('Path not found');break}par.c[nm]={t:'f',d:mm[1]};break}
+ default:out('Bad command or file name')}
+}
+function chk(){const t=node(['TJKT']),f=t&&t.t==='d'?t.c:null;if(f&&f['CADANGAN.TXT'])S.cop=1;
+ [S.dir,!!f,S.in,!!(f&&f['CATATAN.TXT']),S.typed,S.cop,!!(S.cop&&f&&!f['CADANGAN.TXT']),!!(S.in&&!cwd.length)].forEach((v,i)=>{if(v)done[i]=1});
+ [...$('#tk').children].forEach((li,i)=>li.classList.toggle('d',!!done[i]));score.tk=done.filter(Boolean).length;upd()}
+function boot(){$('#tk').innerHTML=T.map(t=>`<li>${t}</li>`).join('');out('MS-DOS Version 6.22 (simulasi)');out('Ketik HELP untuk melihat daftar perintah.');$('#pr').textContent=P()}
+$('#in').addEventListener('keydown',e=>{if(e.key==='Enter'){run(e.target.value);e.target.value='';$('#pr').textContent=P();chk()}});
+$('#term').onclick=()=>$('#in').focus();
+$('#rs').onclick=()=>{fs=mk();cwd=[];S={};done=[];score.tk=0;$('#o').innerHTML='';boot();upd()};
+/* Rekap */
+function upd(){const es=[...document.querySelectorAll('.es')].filter(x=>x.value.trim().length>=20).length,tot=Math.round((score.pg+score.mt+score.tk)/19*100);
+ $('#rk').innerHTML=`<div><b>${score.pg}/5</b><small>Konsep</small></div><div><b>${score.mt}/6</b><small>Cocokkan</small></div><div><b>${score.tk}/8</b><small>Misi terminal</small></div><div><b>${es}/3</b><small>Uraian terisi</small></div><div><b>${tot}</b><small>Nilai otomatis</small></div>`}
+document.querySelectorAll('.es').forEach(x=>x.addEventListener('input',upd));
+
+function mkPDF(){
+ const d=new window.jspdf.jsPDF({unit:'pt',format:'a4'}),W=d.internal.pageSize.getWidth(),HH=d.internal.pageSize.getHeight(),mg=48;let y=mg;
+ const cl=s=>String(s).replace(/…/g,'...').replace(/[—–]/g,'-').replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/[^\n\x20-\x7E\u00A0-\u00FF]/g,'?');
+ const ln=(t,sz=10,b=0,ind=0)=>{d.setFont('helvetica',b?'bold':'normal');d.setFontSize(sz);d.setTextColor(28,35,48);for(const s of d.splitTextToSize(cl(t),W-2*mg-ind)){if(y>HH-mg){d.addPage();y=mg}d.text(s,mg+ind,y);y+=sz*1.4}};
+ const hd=t=>{y+=8;ln(t,12,1)};
+ const T1={pg:'Kegiatan 1: Pahami Konsep',ks:'Studi Kasus Troubleshooting'};
+ const sec=k=>{if(!ANS[k])return;hd(T1[k]);ANS[k].forEach((a,i)=>{ln((i+1)+'. '+a.q,10,1);ln(a.ok===null?'Belum dijawab':'Jawaban: '+a.pick+(a.ok?'  [BENAR]':'  [SALAH] - kunci: '+a.ans),10,0,12)})};
+ ln(document.querySelector('h1').textContent,17,1);ln('Hasil Pengerjaan LKPD Interaktif',11);y+=4;
+ ln('Nama: '+($('#nm').value.trim()||'-'));ln('Kelas/Absen: '+($('#kl').value.trim()||'-'));ln('Dibuat: '+new Date().toLocaleString('id-ID'));
+ hd('Rekap Nilai Otomatis');[...$('#rk').children].forEach(e=>ln(e.querySelector('small').textContent+': '+e.querySelector('b').textContent,10,0,8));
+ sec('pg');
+ hd('Kegiatan 2: Cocokkan Perintah');document.querySelectorAll('#mt select').forEach((s,i)=>ln(M[i][0]+' -> '+(s.value||'(belum dipilih)')+(s.value?(s.value===M[i][1]?'  [BENAR]':'  [SALAH]'):''),10,0,8));
+ hd('Kegiatan 3: Misi Terminal ('+done.filter(Boolean).length+'/'+T.length+')');T.forEach((t,i)=>ln((done[i]?'[x] ':'[ ] ')+t.replace(/<[^>]+>/g,''),10,0,8));
+ if(CMDS.length){ln('Perintah yang diketik:',10,1,8);ln(CMDS.join('\n'),9,0,16)}
+ sec('ks');
+ hd('Jawaban Uraian dan Refleksi');document.querySelectorAll('.es').forEach(x=>{ln(x.previousElementSibling.textContent,10,1);ln(x.value.trim()||'(belum diisi)',10,0,12);y+=4});
+ return d}
+$('#dl').onclick=async()=>{const st=$('#dls');st.textContent='';
+ if(!window.jspdf){st.textContent='Pustaka PDF belum termuat. Periksa koneksi lalu coba lagi.';return}
+ try{const d=mkPDF(),fn='LKPD-DOS-'+($('#nm').value.trim().replace(/[^\w-]+/g,'_')||'siswa')+'.pdf';
+  const dd=window.claude?await claude.use('downloads'):null;
+  if(dd){await dd.save({filename:fn,data:d.output('blob')});st.textContent='PDF disimpan.'}else{d.save(fn);st.textContent='PDF diunduh.'}
+ }catch(e){st.textContent=e&&e.code==='declined'?'Unduhan dibatalkan.':'PDF gagal dibuat atau disimpan. Coba lagi.'}};
+boot();upd();
+</script></body></html>
 
